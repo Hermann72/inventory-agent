@@ -495,6 +495,227 @@
           }
         }
       ]
+    },
+    {
+      "name": "2.2 Query tools",
+      "item": [
+        {
+          "name": "14 Stock by SKU",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "X-User-Id",
+                "value": "hermann"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"message\": \"How much stock do we have of SKU-1234?\"}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/agent/chat",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "agent",
+                "chat"
+              ]
+            }
+          }
+        },
+        {
+          "name": "15 Ambiguous name (3 HDMI cables)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "X-User-Id",
+                "value": "hermann"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"message\": \"How many HDMI cables do we have?\"}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/agent/chat",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "agent",
+                "chat"
+              ]
+            }
+          }
+        },
+        {
+          "name": "16 Below minimum (expect 5, not the equal ones)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "X-User-Id",
+                "value": "hermann"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"message\": \"Which products are below their minimum stock?\"}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/agent/chat",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "agent",
+                "chat"
+              ]
+            }
+          }
+        },
+        {
+          "name": "17 SKU not found",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "X-User-Id",
+                "value": "hermann"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"message\": \"What is the stock of SKU-9999?\"}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/agent/chat",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "agent",
+                "chat"
+              ]
+            }
+          }
+        },
+        {
+          "name": "18 No tool needed",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "X-User-Id",
+                "value": "hermann"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"message\": \"What is a reorder point?\"}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/agent/chat",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "agent",
+                "chat"
+              ]
+            }
+          }
+        },
+        {
+          "name": "19 Spanish name vs English data",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "X-User-Id",
+                "value": "hermann"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"message\": \"¿Cuántas unidades hay del monitor de 27 pulgadas?\"}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/agent/chat",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "agent",
+                "chat"
+              ]
+            }
+          }
+        }
+      ]
     }
   ]
 }

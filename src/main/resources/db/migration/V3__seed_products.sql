@@ -1,0 +1,15 @@
+INSERT INTO product (sku, name, stock, min_stock) VALUES
+  ('SKU-1234', 'Wireless mouse M220',            45, 20),
+  ('SKU-777',  'USB-C charger 65W',              12, 15),
+  ('HDMI-1M',  'HDMI cable 1 m',                  8, 10),
+  ('HDMI-2M',  'HDMI cable 2 m',                 25, 10),
+  ('HDMI-5M',  'HDMI cable 5 m',                 10, 10),
+  ('KB-101',   'Mechanical keyboard K101',        0,  5),
+  ('MON-24',   'Monitor 24 inch FHD',             7,  5),
+  ('MON-27',   'Monitor 27 inch QHD',             3,  4),
+  ('LAP-STD',  'Laptop stand aluminum',          18,  6),
+  ('USB-HUB4', 'USB hub 4 ports',                 6,  6),
+  ('WEB-1080', 'Webcam 1080p',                   14,  8),
+  ('HS-200',   'Headset with microphone',         2,  5),
+  ('PAPER-A4', 'Printer paper A4 500 sheets',   120, 50),
+  ('TONER-85', 'Toner cartridge 85A',             4,  4);
