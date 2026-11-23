@@ -66,4 +66,16 @@ public class ProductRepository {
     private static String escapeLike(String s) {
         return s.replace("\\", "\\\\").replace("%", "\\%").replace("_", "\\_");
     }
+
+    public Optional<Product> increaseStock(String sku, int quantity) {
+        return jdbc.sql("""
+                    UPDATE product
+                    SET stock = stock + :quantity, updated_at = now()
+                    WHERE sku = :sku
+                    RETURNING %s""".formatted(COLUMNS))
+                .param("quantity", quantity)
+                .param("sku", sku)
+                .query(Product.class)
+                .optional();
+    }
 }

@@ -45,7 +45,7 @@ public class ProductService {
         return repository.findBelowMinimum();
     }
 
-    static String normalizeSku(String sku) {
+    public static String normalizeSku(String sku) {
         return sku.trim().toUpperCase(Locale.ROOT);
     }
 }

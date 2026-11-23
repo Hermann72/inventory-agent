@@ -1,5 +1,6 @@
 package com.hero.inventoryagent.config;
 
+import com.hero.inventoryagent.tools.InventoryActionTools;
 import com.hero.inventoryagent.tools.InventoryQueryTools;
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.ai.chat.client.advisor.MessageChatMemoryAdvisor;
@@ -27,12 +28,13 @@ public class AgentConfig {
                           ChatMemory chatMemory,
                           AgentProperties props,
                           InventoryQueryTools inventoryQueryTools,
+                          InventoryActionTools inventoryActionTools,
                           @Value("classpath:prompts/system-inventory-agent.st") Resource systemPrompt) {
         return builder
                 .defaultSystem(s -> s.text(systemPrompt)
                         .param("company_name", props.companyName()))
                 .defaultAdvisors(MessageChatMemoryAdvisor.builder(chatMemory).build())
-                .defaultTools(inventoryQueryTools)
+                .defaultTools(inventoryQueryTools, inventoryActionTools)
                 .build();
     }
 
