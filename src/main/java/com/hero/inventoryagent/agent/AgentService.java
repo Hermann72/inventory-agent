@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.Map;
 import java.util.UUID;
 
 @Service
@@ -27,6 +28,7 @@ public class AgentService {
                 .system(s -> s.param("current_date", LocalDate.now().toString()))
                 .user(message)
                 .advisors(a -> a.param(ChatMemory.CONVERSATION_ID, memoryKey))
+                .toolContext(Map.of("userId", userId))
                 .call()
                 .content();
     }
