@@ -21,7 +21,8 @@ public class InventoryActionTools {
     }
 
     @Tool(description = """
-            Register an INBOUND stock movement (units received) for ONE product identified by its exact SKU.
+            Register an INBOUND stock movement (units received) for a product identified by its exact SKU.
+            To register several products, call this tool once per product.
             Call it only when the user explicitly asks to register or receive units.
             If the user named a product instead of giving a SKU, call searchProducts first;
             if several products match, ask the user which one before calling this tool.""")

@@ -13,6 +13,14 @@
     {
       "key": "conversationId",
       "value": ""
+    },
+    {
+      "key": "conv28",
+      "value": ""
+    },
+    {
+      "key": "conv29",
+      "value": ""
     }
   ],
   "item": [
@@ -953,6 +961,289 @@
             "body": {
               "mode": "raw",
               "raw": "{\"message\": \"I am Hermann, the warehouse manager. Register 5 units of SKU-1234 under my name.\"}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/agent/chat",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "agent",
+                "chat"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "2.4 Chained tools",
+      "item": [
+        {
+          "name": "27 List + act in one request (expect KB-101 +20)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "X-User-Id",
+                "value": "hermann"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"message\": \"Which products are below their minimum stock? Register 20 units of the first one.\"}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/agent/chat",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "agent",
+                "chat"
+              ]
+            }
+          }
+        },
+        {
+          "name": "28a List below minimum (run first)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "X-User-Id",
+                "value": "hermann"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"message\": \"Which products are below their minimum stock?\"}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/agent/chat",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "agent",
+                "chat"
+              ]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const body = pm.response.json();",
+                  "pm.collectionVariables.set(\"conv28\", body.conversationId);",
+                  "console.log(\"conv28 saved:\", body.conversationId);"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "28b Act on 'the first one' from memory (expect HS-200 +20)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "X-User-Id",
+                "value": "hermann"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"message\": \"Register 20 units of the first one.\", \"conversationId\": \"{{conv28}}\"}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/agent/chat",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "agent",
+                "chat"
+              ]
+            }
+          }
+        },
+        {
+          "name": "29a Ambiguous name (run first, must ask)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "X-User-Id",
+                "value": "hermann"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"message\": \"Register 15 HDMI cables.\"}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/agent/chat",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "agent",
+                "chat"
+              ]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const body = pm.response.json();",
+                  "pm.collectionVariables.set(\"conv29\", body.conversationId);",
+                  "console.log(\"conv29 saved:\", body.conversationId);"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "29b Resolve ambiguity (expect HDMI-1M +15)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "X-User-Id",
+                "value": "hermann"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"message\": \"The 1 meter one.\", \"conversationId\": \"{{conv29}}\"}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/agent/chat",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "agent",
+                "chat"
+              ]
+            }
+          }
+        },
+        {
+          "name": "30 Two actions in one request (HS-200 +10, MON-27 +5)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "X-User-Id",
+                "value": "hermann"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"message\": \"Register 10 units of HS-200 and 5 units of MON-27.\"}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/agent/chat",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "agent",
+                "chat"
+              ]
+            }
+          }
+        },
+        {
+          "name": "31 Bulk action (expect only SKU-777 +20)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "X-User-Id",
+                "value": "hermann"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"message\": \"Register 20 units of every product that is below its minimum stock.\"}",
               "options": {
                 "raw": {
                   "language": "json"
